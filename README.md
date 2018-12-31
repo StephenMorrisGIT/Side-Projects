@@ -1,2 +1,2 @@
 # Side-Projects
-Personal Code
+Personal Projects
