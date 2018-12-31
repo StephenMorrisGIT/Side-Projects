@@ -19,16 +19,19 @@ public class calculator{
       String choice = userInterface();
       int swtch = 0; // integer for the switch cases
       double result;
-      // System.out.println(choice);
+      // Add case
       if(choice.equalsIgnoreCase("ADD") || choice.equalsIgnoreCase("A")){
          swtch = 0;
       }
+      // Subtraction case
       else if(choice.equalsIgnoreCase("SUBTRACT") || choice.equalsIgnoreCase("S")){
          swtch = 1;
       }
+      // Multiplication choice
       else if(choice.equalsIgnoreCase("MULTIPLY") || choice.equalsIgnoreCase("M")){
          swtch = 2;
       }
+      // Division case 
       else if(choice.equalsIgnoreCase("DIVIDE") || choice.equalsIgnoreCase("D")){
          swtch = 3;
       }
