@@ -1,3 +1,3 @@
-print("Welcome to the todo list app! Please enter a todo.")
-todo = input("Enter a todo: ")
-print("You entered:", todo)
+print("Welcome to the todo list app!")
+user_input = input("Please enter a todo: ")
+print("You entered:", user_input)
