@@ -11,6 +11,7 @@ import yfinance as yf
 def get_stock_info(ticker: str):
     stock = yf.Ticker(ticker)
     info = stock.info
+    # print(info)
     financials = stock.financials
 
     # Grabbing stock attributes
