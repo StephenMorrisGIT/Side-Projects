@@ -1,10 +1,12 @@
 
 # TODO: 
 # Add more attributes to pull from the stock API
-# Add different stock evaluation methods (Buffet method, ETC)
+# Give users the ability to manually change the information and then re-print
+# Add different stock evaluation methods (Buffet method, personal method, etc). Ask chat gpt about typical stock evaluation methods
 # Export to a word/txt file
 # Do the market stock checks 
 # Do the valuation comparisions
+# Find an API that can do quarterly financials
 
 import yfinance as yf
 
@@ -13,7 +15,7 @@ def get_stock_info(ticker: str):
     info = stock.info
     # print(info)
     financials = stock.financials
-
+    
     # Grabbing stock attributes
     company_name = info.get("shortName")
     industry = info.get("industry")
@@ -24,13 +26,26 @@ def get_stock_info(ticker: str):
     dividend_yield = info.get("dividendYield")
     price_to_book = info.get("priceToBook")
     price_to_sales = info.get("priceToSalesTrailing12Months")
+    price_to_earnings_growth = info.get("pegRatio")
+
     revenue_growth_years = get_consecutive_revenue_growth(financials)
     profit_growth_years = get_consecutive_profit_growth(financials)
 
-    # Formatting
+
+    # Formatting/Calculations
     market_cap_billion = market_cap / 1_000_000_000
     price_to_earnings = stock_price / earnings_per_share
+    # Get the latest two years' data
+    latest_year = financials.columns[0]
+    previous_year = financials.columns[1]
 
+    if not financials[latest_year].empty or not financials[previous_year].empty:
+        # Calculate the EPS growth for the last full fiscal year versus the fiscal year before that
+        if (financials[previous_year].get("Basic EPS") is None or financials[previous_year].get("Basic EPS") <= 0 ) or (financials[latest_year].get("Basic EPS") is None or financials[latest_year].get("Basic EPS") <= 0):
+            eps_growth_fy = -1
+        else:
+            eps_growth_fy = (financials[latest_year].get("Basic EPS") - financials[previous_year].get("Basic EPS")) / financials[previous_year].get("Basic EPS") * 100
+    
     # Printing
     print(f"Company Name: {company_name}")
     print()
@@ -52,10 +67,16 @@ def get_stock_info(ticker: str):
         print(f"Dividend Yield: {dividend_yield*100:.2f}%")
     
     if price_to_earnings < 0:
-        print("\033[91mEPS is currently negative\033[0m")
+        print("\033[91mPrice/Earnings is currently negative\033[0m")
     else:
         print(f"Price to Earnings Ratio: {price_to_earnings:.2f}")
-
+    
+    if eps_growth_fy < 0:
+        print("\033[91mAnnual EPS Growth is currently negative\033[0m")
+    else:
+        print(f"EPS GROWTH (ANNUAL): {eps_growth_fy:.2f}%")
+    
+    print(f"Price/Earnings Growth: {price_to_earnings_growth:.2f}")
     print(f"Price to Book Ratio: {price_to_book:.2f}")
     
     if price_to_sales is None or price_to_sales == 0:
