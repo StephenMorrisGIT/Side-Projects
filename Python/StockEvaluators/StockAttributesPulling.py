@@ -1,6 +1,8 @@
 
 # TODO: 
+# Rename this task
 # Add more attributes to pull from the stock API
+# Fix years of revenue and profit growth
 # Give users the ability to manually change the information and then re-print
 # Add different stock evaluation methods (Buffet method, personal method, etc). Ask chat gpt about typical stock evaluation methods
 # Export to a word/txt file
@@ -12,12 +14,15 @@ import yfinance as yf
 
 def get_stock_info(ticker: str):
     stock = yf.Ticker(ticker)
+    if not stock.info:
+        print("\033[91mNo information found for the given stock ticker\033[0m")
+        return
     info = stock.info
     # print(info)
     financials = stock.financials
     
     # Grabbing stock attributes
-    company_name = info.get("shortName")
+    company_name = info.get("longName")
     industry = info.get("industry")
     sector = info.get("sector")
     market_cap = info.get("marketCap")
@@ -26,7 +31,7 @@ def get_stock_info(ticker: str):
     dividend_yield = info.get("dividendYield")
     price_to_book = info.get("priceToBook")
     price_to_sales = info.get("priceToSalesTrailing12Months")
-    price_to_earnings_growth = info.get("pegRatio")
+    # price_to_earnings_growth = info.get("pegRatio")
 
     revenue_growth_years = get_consecutive_revenue_growth(financials)
     profit_growth_years = get_consecutive_profit_growth(financials)
@@ -35,6 +40,7 @@ def get_stock_info(ticker: str):
     # Formatting/Calculations
     market_cap_billion = market_cap / 1_000_000_000
     price_to_earnings = stock_price / earnings_per_share
+    
     # Get the latest two years' data
     latest_year = financials.columns[0]
     previous_year = financials.columns[1]
@@ -45,9 +51,14 @@ def get_stock_info(ticker: str):
             eps_growth_fy = -1
         else:
             eps_growth_fy = (financials[latest_year].get("Basic EPS") - financials[previous_year].get("Basic EPS")) / financials[previous_year].get("Basic EPS") * 100
-    
+
+    price_to_earnings_growth = (stock_price / earnings_per_share)/eps_growth_fy
+
     # Printing
     print(f"Company Name: {company_name}")
+    print(f"Ticker: {ticker}")
+    print(f"Market Cap: ${market_cap_billion:,.2f}b")
+    print(f"Stock Price: ${stock_price:,.2f}")
     print()
     print(f"Industry: {industry}")
     print(f"Sector: {sector}")
@@ -55,12 +66,11 @@ def get_stock_info(ticker: str):
     print(f"Years of Revenue Growth: {revenue_growth_years}")
     print(f"Years of Profit Growth: {profit_growth_years}")
     print()
-    print(f"Market Cap: ${market_cap_billion:,.2f}b")
-    print(f"Stock Price: ${stock_price:,.2f}")
+    
     if earnings_per_share < 0:
         print(f"\033[91mEarnings Per Share: ${earnings_per_share:,.2f}\033[0m")
     else:
-        print(f"Earnings Per Share: ${earnings_per_share:,.2f}")
+        print(f"Earnings Per Share (TTM): ${earnings_per_share:,.2f}")
     if dividend_yield is None or dividend_yield == 0:
         print("\033[91mStock does not currently pay a dividend\033[0m")
     else:
@@ -71,11 +81,12 @@ def get_stock_info(ticker: str):
     else:
         print(f"Price to Earnings Ratio: {price_to_earnings:.2f}")
     
-    if eps_growth_fy < 0:
-        print("\033[91mAnnual EPS Growth is currently negative\033[0m")
+    if eps_growth_fy == -1:
+        print("\033[91mAnnual EPS Growth could not be calculated\033[0m")
+    elif eps_growth_fy < 0:
+        print("\033[91mEPS GROWTH (ANNUAL): {:.2f}%\033[0m".format(eps_growth_fy)) 
     else:
-        print(f"EPS GROWTH (ANNUAL): {eps_growth_fy:.2f}%")
-    
+        print("EPS GROWTH (ANNUAL): {:.2f}%".format(eps_growth_fy))     
     print(f"Price/Earnings Growth: {price_to_earnings_growth:.2f}")
     print(f"Price to Book Ratio: {price_to_book:.2f}")
     
