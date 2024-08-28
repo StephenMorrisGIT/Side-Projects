@@ -1,3 +1,6 @@
+# TODO:
+# Add a completion message
+
 import yfinance as yf
 
 def get_yfinance_field_constants(ticker):
