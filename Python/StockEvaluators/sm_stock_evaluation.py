@@ -50,49 +50,57 @@ def get_stock_info(ticker: str):
             eps_growth_fy = -1
         else:
             eps_growth_fy = (financials[latest_year].get("Basic EPS") - financials[previous_year].get("Basic EPS")) / financials[previous_year].get("Basic EPS") * 100
-
-    price_to_earnings_growth = (stock_price / earnings_per_share)/eps_growth_fy
+    if earnings_per_share < 0 or eps_growth_fy < 0:
+        price_to_earnings_growth = -1   
+    else:
+        price_to_earnings_growth = (stock_price / earnings_per_share)/eps_growth_fy
 
     # Printing
-    print(f"Company Name: {company_name}")
-    print(f"Ticker: {ticker}")
-    print(f"Market Cap: ${market_cap_billion:,.2f}b")
-    print(f"Stock Price: ${stock_price:,.2f}")
+    print(f"\033[1mCompany Name:\033[0m {company_name}")
+    print(f"\033[1mTicker:\033[0m {ticker}")
+    print(f"\033[1mMarket Cap:\033[0m ${market_cap_billion:,.2f}b")
+    print(f"\033[1mStock Price:\033[0m ${stock_price:,.2f}")
     print()
-    print(f"Industry: {industry}")
-    print(f"Sector: {sector}")
+    print(f"\033[1mIndustry:\033[0m {industry}")
+    print(f"\033[1mSector:\033[0m {sector}")
     print()
-    print(f"Years of Revenue Growth: {revenue_growth_years}")
-    print(f"Years of Profit Growth: {profit_growth_years}")
+    print(f"\033[1mYears of Revenue Growth:\033[0m {revenue_growth_years}")
+    print(f"\033[1mYears of Profit Growth:\033[0m {profit_growth_years}")
     print()
     
     if earnings_per_share < 0:
-        print(f"\033[91mEarnings Per Share: ${earnings_per_share:,.2f}\033[0m")
+        print(f"\033[91mEarnings Per Share:\033[0m ${earnings_per_share:,.2f}\033[0m")
     else:
-        print(f"Earnings Per Share (TTM): ${earnings_per_share:,.2f}")
+        print(f"\033[1mEarnings Per Share (TTM):\033[0m ${earnings_per_share:,.2f}")
+    
     if dividend_yield is None or dividend_yield == 0:
         print("\033[91mStock does not currently pay a dividend\033[0m")
     else:
-        print(f"Dividend Yield: {dividend_yield*100:.2f}%")
+        print(f"\033[1mDividend Yield:\033[0m {dividend_yield*100:.2f}%")
     
     if price_to_earnings < 0:
         print("\033[91mPrice/Earnings is currently negative\033[0m")
     else:
-        print(f"Price to Earnings Ratio: {price_to_earnings:.2f}")
+        print(f"\033[1mPrice to Earnings Ratio:\033[0m {price_to_earnings:.2f}")
     
     if eps_growth_fy == -1:
         print("\033[91mAnnual EPS Growth could not be calculated\033[0m")
     elif eps_growth_fy < 0:
-        print("\033[91mEPS GROWTH (ANNUAL): {:.2f}%\033[0m".format(eps_growth_fy)) 
+        print("\033[91mEPS GROWTH (ANNUAL):\033[0m {:.2f}%\033[0m".format(eps_growth_fy)) 
     else:
-        print("EPS GROWTH (ANNUAL): {:.2f}%".format(eps_growth_fy))     
-    print(f"Price/Earnings Growth: {price_to_earnings_growth:.2f}")
-    print(f"Price to Book Ratio: {price_to_book:.2f}")
+        print("\033[1mEPS GROWTH (ANNUAL):\033[0m {:.2f}%".format(eps_growth_fy))  
+
+    if price_to_earnings_growth == -1:
+        print("\033[91mPEG could not be calculated\033[0m")
+    else:   
+        print(f"\033[1mPrice/Earnings Growth:\033[0m {price_to_earnings_growth:.2f}")
+    
+    print(f"\033[1mPrice to Book Ratio:\033[0m {price_to_book:.2f}")
     
     if price_to_sales is None or price_to_sales == 0:
         print("\033[91mPrice to Sales Ratio: N/A\033[0m")
     else:
-        print(f"Price to Sales Ratio: {price_to_sales:.2f}")
+        print(f"\033[1mPrice to Sales Ratio:\033[0m {price_to_sales:.2f}")
 
 def get_consecutive_revenue_growth(financials):
     # Extract revenue data
@@ -121,6 +129,6 @@ def get_consecutive_profit_growth(financials):
     return profit_growth_years
 
 
-## ticker = input("Enter a stock ticker: ")
-## get_stock_info(ticker)
+# ticker = input("Enter a stock ticker: ")
+# get_stock_info(ticker)
 
