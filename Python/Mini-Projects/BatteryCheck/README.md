@@ -11,11 +11,11 @@ And the other python package that you need to install is:
         > pip install psutil
 
 ## Requirements:
-psutil==5.7.2
+    psutil==5.7.2
 
 ## How to run the Script:
     python battery.py
 
 ## Author Name:
-Stephen Morris
+    Stephen Morris
 
