@@ -1,0 +1,12 @@
+# Section 1
+Does white space matter in the code?
+Yes. The following cases for example:
+    1. When space is in front of a line of code
+    2. When space is inside strings. Having white space inside a string will not produce any error but having white space in a string fundamentally changes the value. Ex: "Hello" != "Hello "
+    3. When space occurs in a variable name. Ex: lastname is a valid variable name, last name is not
+
+What happens if you create a variable two times in a program?
+The last declared variable value with be the true value
+
+
+
