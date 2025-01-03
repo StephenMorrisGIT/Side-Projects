@@ -3,6 +3,6 @@ Personal Projects
 
 # Project Ideas
 # Python
-Calculator
-Most common words in a text document
+Calculator <br />
+Most common words in a text document <br />
 Most common words from a website
