@@ -34,7 +34,7 @@
 ### Built With
 
 * [![Java][Java.com]][Java-url]
-* [![Python][python.org/3/]][Python-url]
+* [![Python][Python.org]][Python-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
