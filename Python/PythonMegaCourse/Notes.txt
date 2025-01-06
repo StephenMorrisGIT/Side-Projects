@@ -8,5 +8,8 @@ Yes. The following cases for example:
 What happens if you create a variable two times in a program?
 The last declared variable value with be the true value
 
-
+# Section 2
+-Python list uses .append to add elements to it as opposed to .add 
+-.capitalize only capitalizes the first letter of a string, .title can be used on a string to capitalize the first letter of each work in a string
+-Python documentation (https://docs.python.org/3/)
 
