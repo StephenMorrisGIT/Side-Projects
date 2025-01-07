@@ -8,7 +8,7 @@
 <h3 align="center">Side Projects</h3>
 
   <p align="center">
-    Stephen Morris' coding Side Projects on his SDE learning and improvement journey. Some useful, some just for fun...
+    Stephen Morris' coding Personal Projects on his SDE learning and improvement journey. Some useful, some just for fun...
     <br />
   </p>
 </div>
