@@ -1,0 +1,73 @@
+Tax Effect Of Unusual Items                                      -360787.0
+Tax Rate For Calcs                                                  0.0014
+Total Unusual Items                                           -257705000.0
+Total Unusual Items Excluding Goodwill                        -257705000.0
+Net Income From Continuing Operation Net Minority Interest    -300742000.0
+Reconciled Depreciation                                        201416000.0
+Net Interest Income                                           1261740000.0
+Interest Expense                                               789327000.0
+Interest Income                                               2051067000.0
+Normalized Income                                              -43397787.0
+Net Income From Continuing And Discontinued Operation         -300742000.0
+Diluted Average Shares                                         945024160.0
+Basic Average Shares                                           945024160.0
+Diluted EPS                                                          -0.36
+Basic EPS                                                            -0.36
+Diluted NI Availto Com Stockholders                           -341167000.0
+Net Income Common Stockholders                                -341167000.0
+Otherunder Preferred Stock Dividend                                    NaN
+Preferred Stock Dividends                                       40425000.0
+Net Income                                                    -300742000.0
+Net Income Including Noncontrolling Interests                 -300742000.0
+Net Income Continuous Operations                              -300742000.0
+Tax Provision                                                    -416000.0
+Pretax Income                                                 -301158000.0
+Special Income Charges                                        -257705000.0
+Other Special Charges                                           10971000.0
+Impairment Of Capital Assets                                   248417000.0
+Restructuring And Mergern Acquisition                           12891000.0
+Gain On Sale Of Security                                               NaN
+Selling General And Administration                            1230411000.0
+Selling And Marketing Expense                                  719400000.0
+General And Administrative Expense                             511011000.0
+Other Gand A                                                   511011000.0
+Total Revenue                                                 2108215000.0
+Operating Revenue                                             2108215000.0
+Other Non Interest Expense                                     866312000.0
+Name: 2023-12-31 00:00:00, dtype: object
+Tax Effect Of Unusual Items                                     -4056780.0
+Tax Rate For Calcs                                                    0.21
+Total Unusual Items                                            -19318000.0
+Total Unusual Items Excluding Goodwill                         -19318000.0
+Net Income From Continuing Operation Net Minority Interest    -320407000.0
+Reconciled Depreciation                                        151360000.0
+Net Interest Income                                            584096000.0
+Interest Expense                                               189275000.0
+Interest Income                                                773371000.0
+Normalized Income                                             -305145780.0
+Net Income From Continuing And Discontinued Operation         -320407000.0
+Diluted Average Shares                                         900886113.0
+Basic Average Shares                                           900886113.0
+Diluted EPS                                                           -0.4
+Basic EPS                                                             -0.4
+Diluted NI Availto Com Stockholders                           -360832000.0
+Net Income Common Stockholders                                -360832000.0
+Otherunder Preferred Stock Dividend                                    NaN
+Preferred Stock Dividends                                       40425000.0
+Net Income                                                    -320407000.0
+Net Income Including Noncontrolling Interests                 -320407000.0
+Net Income Continuous Operations                              -320407000.0
+Tax Provision                                                    1686000.0
+Pretax Income                                                 -318721000.0
+Special Income Charges                                         -19318000.0
+Other Special Charges                                                  NaN
+Impairment Of Capital Assets                                           0.0
+Restructuring And Mergern Acquisition                           19318000.0
+Gain On Sale Of Security                                       -40031000.0
+Selling General And Administration                            1119441000.0
+Selling And Marketing Expense                                  617823000.0
+General And Administrative Expense                             501618000.0
+Other Gand A                                                   501618000.0
+Total Revenue                                                 1573535000.0
+Operating Revenue                                             1573535000.0
+Other Non Interest Expense                                     699165000.0
