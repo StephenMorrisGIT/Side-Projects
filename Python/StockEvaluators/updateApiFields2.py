@@ -22,9 +22,9 @@ def write_financials_to_file(financials, filename):
 # Example usage:
 ticker = "AAPL"
 field_constants = get_yfinance_field_constants(ticker)
-write_fields_to_file(field_constants, 'yfinanceFieldConstants.txt')
+write_fields_to_file(field_constants, 'Constants/yfinanceFieldConstants.txt')
 
 financials = get_financials_data(ticker)
-write_financials_to_file(financials, 'yfinanceFinancialColumnsConstants.txt')
+write_financials_to_file(financials, 'Constants/yfinanceFinancialColumnsConstants.txt')
 
 print("\033[92mFinancial data and field constants have been successfully retrieved and written to files.\033[0m")

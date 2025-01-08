@@ -1,0 +1,5 @@
+-Create a password generation and storage app
+    -Set up a local storage version and also integration with AWS Simple DB
+-Add more valuation methods to the stock screener
+    -Start with buffet methods
+    -Consider the next method being the structured query to chatgpt using the script I have
