@@ -6,8 +6,8 @@ import importlib
 
 # Custom Library Imports
 import stock_validation
-import valuation_method_selection
-import sm_stock_evaluation
+from ValuationMethods import valuation_method_selection
+from ValuationMethods import sm_stock_evaluation
 # import buffett_stock_evaluation
 
 
