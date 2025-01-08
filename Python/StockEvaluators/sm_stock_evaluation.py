@@ -3,6 +3,7 @@
 # methods docs
 # Add more attributes to pull from the stock API
 # Fix get_consecutive_revenue_growth and get_consecutive_profit_growth
+# Make Basic EPS a constant
 # Give users the ability to manually change the information and then re-print
 # Add different stock evaluation methods (Buffet method, personal method, etc). Ask chat gpt about typical stock evaluation methods
 # Export to a word/txt file

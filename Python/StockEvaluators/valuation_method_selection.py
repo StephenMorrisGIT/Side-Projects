@@ -2,9 +2,12 @@
 
 import csv
 
+# Constants
+valuation_methods_file = 'stockValuationMethods.csv'
+
 def get_valuation_method():
     choices = {}
-    with open('stockValuationMethods.csv', 'r') as csvfile:
+    with open(valuation_methods_file, 'r') as csvfile:
         reader = csv.reader(csvfile)
         for i, row in enumerate(reader):
             choices[i+1] = row
