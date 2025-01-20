@@ -12,8 +12,14 @@
 # Find an API that can do quarterly financials
 
 import yfinance as yf
+import math
+from Objects.output import Output
+#from docx import Document
 
-def get_stock_info(ticker: str):
+#constants
+revenue_growth_target = 5
+
+def get_stock_info(ticker: str, output_obj: Output):
     stock = yf.Ticker(ticker)
     if not stock.info:
         print("\033[91mNo information found for the given stock ticker\033[0m")
@@ -57,51 +63,58 @@ def get_stock_info(ticker: str):
         price_to_earnings_growth = (stock_price / earnings_per_share)/eps_growth_fy
 
     # Printing
-    print(f"\033[1mCompany Name:\033[0m {company_name}")
-    print(f"\033[1mTicker:\033[0m {ticker}")
-    print(f"\033[1mMarket Cap:\033[0m ${market_cap_billion:,.2f}b")
-    print(f"\033[1mStock Price:\033[0m ${stock_price:,.2f}")
-    print()
-    print(f"\033[1mIndustry:\033[0m {industry}")
-    print(f"\033[1mSector:\033[0m {sector}")
-    print()
-    print(f"\033[1mYears of Revenue Growth:\033[0m {revenue_growth_years}")
-    print(f"\033[1mYears of Profit Growth:\033[0m {profit_growth_years}")
-    print()
+    print_and_add_to_output(output_obj, f"Company Name: {company_name}", None)
+    print_and_add_to_output(output_obj, f"Ticker: {ticker}", None)
+    if market_cap_billion:
+        print_and_add_to_output(output_obj, f"Market Cap: ${market_cap_billion:,.2f}b", None)
+    print_and_add_to_output(output_obj, f"Stock Price: ${stock_price:,.2f}", None)
+    print_and_add_to_output(output_obj, "", None)
+    print_and_add_to_output(output_obj, f"Industry: {industry}", None)
+    print_and_add_to_output(output_obj, f"Sector: {sector}", None)
+    print_and_add_to_output(output_obj, "", None)
+    if revenue_growth_years >= revenue_growth_target:
+        print_and_add_to_output(output_obj, f"Years of Revenue Growth: {revenue_growth_years}", "green")
+    else:
+        print_and_add_to_output(output_obj, f"Years of Revenue Growth: {revenue_growth_years}", "red")
+    print_and_add_to_output(output_obj, f"Years of Profit Growth: {profit_growth_years}", None)
+    print_and_add_to_output(output_obj, "", None)
+    
     
     if earnings_per_share < 0:
-        print(f"\033[91mEarnings Per Share:\033[0m ${earnings_per_share:,.2f}\033[0m")
+        print_and_add_to_output(output_obj, f"Earnings Per Share (TTM): ${earnings_per_share:,.2f}", "red")
     else:
-        print(f"\033[1mEarnings Per Share (TTM):\033[0m ${earnings_per_share:,.2f}")
+        print_and_add_to_output(output_obj, f"Earnings Per Share (TTM): ${earnings_per_share:,.2f}",None)
     
     if dividend_yield is None or dividend_yield == 0:
-        print("\033[91mStock does not currently pay a dividend\033[0m")
+        print_and_add_to_output(output_obj, "Stock does not currently pay a dividend", "red")
     else:
-        print(f"\033[1mDividend Yield:\033[0m {dividend_yield*100:.2f}%")
+        print_and_add_to_output(output_obj, f"Dividend Yield: {dividend_yield*100:.2f}%", None)
     
     if price_to_earnings < 0:
-        print("\033[91mPrice/Earnings is currently negative\033[0m")
+        print_and_add_to_output(output_obj, f"Price/Earnings is currently negative", "red")
     else:
-        print(f"\033[1mPrice to Earnings Ratio:\033[0m {price_to_earnings:.2f}")
+        print_and_add_to_output(output_obj, f"Price to Earnings Ratio: {price_to_earnings:.2f}", None)
     
-    if eps_growth_fy == -1:
-        print("\033[91mAnnual EPS Growth could not be calculated\033[0m")
+    if eps_growth_fy == -1 or math.isnan(eps_growth_fy):
+        print_and_add_to_output(output_obj, "Annual EPS Growth could not be calculated", "red")
     elif eps_growth_fy < 0:
-        print("\033[91mEPS GROWTH (ANNUAL):\033[0m {:.2f}%\033[0m".format(eps_growth_fy)) 
+        print_and_add_to_output(output_obj, "EPS GROWTH (ANNUAL): {:.2f}%".format(eps_growth_fy), "green")
     else:
-        print("\033[1mEPS GROWTH (ANNUAL):\033[0m {:.2f}%".format(eps_growth_fy))  
+        print_and_add_to_output(output_obj, "EPS GROWTH (ANNUAL): {:.2f}%".format(eps_growth_fy), None)
 
-    if price_to_earnings_growth == -1:
-        print("\033[91mPEG could not be calculated\033[0m")
+    if price_to_earnings_growth == -1 or math.isnan(price_to_earnings_growth):
+        print_and_add_to_output(output_obj, "PEG could not be calculated", "red")
     else:   
-        print(f"\033[1mPrice/Earnings Growth:\033[0m {price_to_earnings_growth:.2f}")
+        print_and_add_to_output(output_obj, f"Price/Earnings Growth: {price_to_earnings_growth:.2f}", None)
     
-    print(f"\033[1mPrice to Book Ratio:\033[0m {price_to_book:.2f}")
+    print_and_add_to_output(output_obj, f"Price to Book Ratio: {price_to_book:.2f}", None)
     
     if price_to_sales is None or price_to_sales == 0:
-        print("\033[91mPrice to Sales Ratio: N/A\033[0m")
+        print_and_add_to_output(output_obj, "Price to Sales Ratio: N/A", "red")
     else:
-        print(f"\033[1mPrice to Sales Ratio:\033[0m {price_to_sales:.2f}")
+        print_and_add_to_output(output_obj, f"Price to Sales Ratio: {price_to_sales:.2f}", None)
+    
+    return output_obj    
 
 def get_consecutive_revenue_growth(financials):
     # Extract revenue data
@@ -129,6 +142,14 @@ def get_consecutive_profit_growth(financials):
             break
     return profit_growth_years
 
+def print_and_add_to_output(output_obj, line, color):
+    if color == "green":
+        print(f"\033[92m{line}\033[0m")
+    elif color == "red":
+        print(f"\033[91m{line}\033[0m")
+    else:
+        print(line)
+    output_obj.add(line, color)
 
 # ticker = input("Enter a stock ticker: ")
 # get_stock_info(ticker)

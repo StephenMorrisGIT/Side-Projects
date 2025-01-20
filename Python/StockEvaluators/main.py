@@ -8,8 +8,10 @@ import sys
 
 # Custom Library Imports
 import stock_validation
+import after_valuation
 from ValuationMethods import valuation_method_selection
 from ValuationMethods import sm_stock_evaluation
+from Objects.output import Output
 # import buffett_stock_evaluation
 
 # Constants
@@ -29,8 +31,12 @@ def main():
         module = importlib.import_module(file_name)
 
         # Get the stock info from the selected module
-        stock_info = module.get_stock_info(ticker)
+        output = Output()  # Create an Output object
+        module.get_stock_info(ticker, output)
         # stock_info = sm_stock_evaluation.get_stock_info(ticker)
+        # next_action = after_valuation.valuation_next_steps(stock_info)
+        #if next_action == "evaluate_another_stock":
+            # main()
     else:   
         print("Exiting program.")
 
