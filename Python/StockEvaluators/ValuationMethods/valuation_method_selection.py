@@ -1,9 +1,12 @@
 # choices.py
-
+import os
 import csv
 
+
 # Constants
-valuation_methods_file = 'stockValuationMethods.csv'
+valuation_methods_file_name = 'stockValuationMethods.csv'
+valuation_methods_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), valuation_methods_file_name)
+
 
 def get_valuation_method():
     choices = {}
