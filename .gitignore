@@ -1,0 +1,17 @@
+# Environment / secrets
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# JetBrains IDE
+.idea/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
