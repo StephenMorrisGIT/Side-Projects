@@ -11,8 +11,6 @@ Before installing and running the program, ensure the following prerequisites ar
 - **Python**: Version 3.8 or later.
 - **Libraries**:
   - `yfinance`
-  - `pandas`
-  - `csv`
 - **OS**: Windows, macOS, or Linux.
 - Additional requirement: A CSV file named `stockValuationMethods.csv` containing available valuation methods.
 
